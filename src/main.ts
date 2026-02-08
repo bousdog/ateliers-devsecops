@@ -10,7 +10,7 @@ import { NotesComponent } from './notes.component';
   template: `
     <div class="app-container">
       <header class="app-header">
-        <h1>📅 Mon Calendrier de Notes</h1>
+        <h1>📅 Mon Calendrier de Notes (Atelier2)</h1>
         <p>Organisez vos idées et vos tâches quotidiennes</p>
       </header>
 
