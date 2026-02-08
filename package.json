@@ -4,8 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
-    "lint": "ng test --code-coverage"
+    "build": "ng build"
   },
   "dependencies": {
     "@angular/animations": "^21.0.3",
