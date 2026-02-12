@@ -6,6 +6,11 @@ on:
       - main
   pull_request:
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
@@ -29,5 +34,24 @@ jobs:
       - name: Run unit tests
         run: npx ng test demo --watch=false --browsers=ChromeHeadless
 
-      - name: Build Angular app
-        run: npm run build
+      # - name: Build Angular app
+      #   run: npm run build
+      - name: Build Angular
+        run: npm run build -- --base-href="/${{ github.event.repository.name }}/"
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist/
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
