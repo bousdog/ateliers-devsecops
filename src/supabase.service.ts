@@ -15,11 +15,12 @@ export interface Note {
 })
 export class SupabaseService {
   private supabase: SupabaseClient;
-
   constructor() {
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY;
     this.supabase = createClient(
-      'https://fliesemsumcmazawoxlu.supabase.co',
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRpZnpwaWtvenlua3luZ2h6ZGR5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA1MDY3MTcsImV4cCI6MjA4NjA4MjcxN30.kQEkMUeK9k3V887G6aNATDMPAXH27R-AIepz3jT7i-Y'
+      supabaseUrl,
+      supabaseKey
     );
   }
 
