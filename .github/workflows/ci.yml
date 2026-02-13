@@ -26,15 +26,12 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: adding environment variables
-        shell: bash
         run: |
-          cat <<EOF > src/environments/environment.prod.ts
-          export const environment = {
+          echo "export const environment = {
             production: true,
-            supabaseUrl: "${{ vars.VITE_SUPABASE_URL }}",
-            supabaseAnonKey: "${{ vars.VITE_SUPABASE_ANON_KEY }}"
-          };
-          EOF
+            supabaseUrl: '${{ vars.SUPABASE_URL }}',
+            supabaseAnonKey: '${{ vars.VITE_SUPABASE_ANON_KEY }}'
+          };" > src/environments/environment.prod.ts
 
       # - name: Run lint
       #   run: npm run lint
@@ -65,3 +62,8 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+      - name: Create tag
+        if: github.ref == 'refs/heads/main'
+        run: |
+          git tag v$(date +'%Y%m%d%H%M%S')
+          git push origin --tags
