@@ -25,6 +25,13 @@ jobs:
           node-version: 20
       - name: Install dependencies
         run: npm install
+      - name: adding environment variables
+      - run: |
+          echo "export const environment = {
+            production: true,
+            supabaseUrl: '${{ secrets.SUPABASE_URL }}',
+            supabaseAnonKey: '${{ secrets.SUPABASE_ANON_KEY }}'
+          };" > src/environments/environment.ts
 
       # - name: Run lint
       #   run: npm run lint
