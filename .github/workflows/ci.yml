@@ -118,12 +118,16 @@ jobs:
         run: npm install
         
       - name: adding environment variables
-        run: |
-          echo "export const environment = {
+        if: steps.check_stable.outputs.stable_exists == 'true'
+        run: run: |
+          mkdir -p src/environments
+          cat <<EOF > src/environments/environment.prod.ts
+          export const environment = {
             production: true,
-            supabaseUrl: '${{ vars.SUPABASE_URL }}',
-            supabaseAnonKey: '${{ vars.VITE_SUPABASE_ANON_KEY }}'
-          };" > src/environments/environment.prod.ts
+            supabaseUrl: "${{ vars.SUPABASE_URL }}",
+            supabaseAnonKey: "${{ vars.VITE_SUPABASE_ANON_KEY }}"
+          };
+          EOF
 
       - name: Rebuild stable version
         if: steps.check_stable.outputs.stable_exists == 'true'
