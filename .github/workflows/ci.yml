@@ -119,7 +119,7 @@ jobs:
         
       - name: adding environment variables
         if: steps.check_stable.outputs.stable_exists == 'true'
-        run: run: |
+        run: |
           mkdir -p src/environments
           cat <<EOF > src/environments/environment.prod.ts
           export const environment = {
