@@ -31,8 +31,8 @@ jobs:
           cat <<EOF > src/environments/environment.prod.ts
           export const environment = {
             production: true,
-            supabaseUrl: "$VITE_SUPABASE_URL",
-            supabaseAnonKey: "$VITE_SUPABASE_ANON_KEY"
+            supabaseUrl: "${{ vars.VITE_SUPABASE_URL }}",
+            supabaseAnonKey: "${{ vars.VITE_SUPABASE_ANON_KEY }}"
           };
           EOF
 
