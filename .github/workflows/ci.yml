@@ -67,3 +67,45 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+      - name: Wait before health check
+        run: sleep 20
+
+      - name: Health check
+        id: health
+        run: |
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" ${{ steps.deployment.outputs.page_url }})
+          echo "HTTP STATUS: $STATUS"
+          if [ "$STATUS" != "200" ]; then
+            echo "Health check failed"
+            exit 1
+          fi
+
+  rollback:
+    needs: deploy
+    if: failure()
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout stable version
+        uses: actions/checkout@v3
+        with:
+          ref: stable
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Rebuild stable version
+        run: npm run build -- --base-href="/${{ github.event.repository.name }}/" --configuration production
+
+      - name: Upload rollback artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist/demo/browser
+
+      - name: Redeploy stable version
+        uses: actions/deploy-pages@v4
