@@ -112,7 +112,14 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 20
-
+      - name: adding environment variables
+        run: |
+          echo "export const environment = {
+            production: true,
+            supabaseUrl: '${{ vars.SUPABASE_URL }}',
+            supabaseAnonKey: '${{ vars.VITE_SUPABASE_ANON_KEY }}'
+          };" > src/environments/environment.prod.ts
+          
       - name: Install dependencies
         if: steps.check_stable.outputs.stable_exists == 'true'
         run: npm install
