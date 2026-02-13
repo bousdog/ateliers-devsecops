@@ -26,12 +26,15 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: adding environment variables
+        shell: bash
         run: |
-          echo "export const environment = {
+          cat <<EOF > src/environments/environment.prod.ts
+          export const environment = {
             production: true,
-            supabaseUrl: \"${{ secrets.SUPABASE_URL }}\",
-            supabaseAnonKey: \"${{ secrets.VITE_SUPABASE_ANON_KEY }}\"
-          };" > src/environments/environment.prod.ts
+            supabaseUrl: "${{ secrets.SUPABASE_URL }}",
+            supabaseAnonKey: "${{ secrets.VITE_SUPABASE_ANON_KEY }}"
+          };
+          EOF
 
       # - name: Run lint
       #   run: npm run lint
