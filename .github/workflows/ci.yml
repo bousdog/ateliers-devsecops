@@ -30,7 +30,7 @@ jobs:
           echo "export const environment = {
             production: true,
             supabaseUrl: '${{ secrets.SUPABASE_URL }}',
-            supabaseAnonKey: '${{ secrets.SUPABASE_ANON_KEY }}'
+            supabaseAnonKey: '${{ secrets.VITE_SUPABASE_ANON_KEY }}'
           };" > src/environments/environment.ts
 
       # - name: Run lint
