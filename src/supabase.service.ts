@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { environment } from './environments/environment';
+import { environment as  environmentp} from './environments/environment.prod';
 export interface Note {
   id?: string;
   date: string;
@@ -18,6 +19,8 @@ export class SupabaseService {
   constructor() {
     const supabaseUrl = environment.supabaseUrl;
     const supabaseKey = environment.supabaseAnonKey;
+    console.log("environment", environment);
+    console.log("environmentp", environmentp);
     this.supabase = createClient(
       supabaseUrl,
       supabaseKey
