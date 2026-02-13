@@ -29,8 +29,8 @@ jobs:
         run: |
           echo "export const environment = {
             production: true,
-            supabaseUrl: "https://fliesemsumcmazawoxlu.supabase.co",
-            supabaseAnonKey: "sb_publishable_GwqFRTHiNgtCxFCeZ89ndA_LXP6WeEh"
+            supabaseUrl: 'https://fliesemsumcmazawoxlu.supabase.co',
+            supabaseAnonKey: 'sb_publishable_GwqFRTHiNgtCxFCeZ89ndA_LXP6WeEh'
           };" > src/environments/environment.prod.ts
 
       # - name: Run lint
