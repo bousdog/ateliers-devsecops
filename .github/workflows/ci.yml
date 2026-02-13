@@ -86,26 +86,47 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Check if stable tag exists
+        id: check_stable
+        run: |
+          if git ls-remote --tags origin stable | grep stable; then
+            echo "stable_exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "stable_exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Stop if no stable version
+        if: steps.check_stable.outputs.stable_exists == 'false'
+        run: |
+          echo "No stable version found. Cannot rollback."
+          exit 0
+
       - name: Checkout stable version
+        if: steps.check_stable.outputs.stable_exists == 'true'
         uses: actions/checkout@v3
         with:
           ref: stable
 
       - name: Setup Node.js
+        if: steps.check_stable.outputs.stable_exists == 'true'
         uses: actions/setup-node@v3
         with:
           node-version: 20
 
       - name: Install dependencies
+        if: steps.check_stable.outputs.stable_exists == 'true'
         run: npm install
 
       - name: Rebuild stable version
+        if: steps.check_stable.outputs.stable_exists == 'true'
         run: npm run build -- --base-href="/${{ github.event.repository.name }}/" --configuration production
 
       - name: Upload rollback artifact
+        if: steps.check_stable.outputs.stable_exists == 'true'
         uses: actions/upload-pages-artifact@v3
         with:
           path: dist/demo/browser
 
       - name: Redeploy stable version
+        if: steps.check_stable.outputs.stable_exists == 'true'
         uses: actions/deploy-pages@v4
