@@ -59,14 +59,13 @@ jobs:
 
       - name: Copy dist folder
         run: |
-          docker cp temp:/usr/share/nginx/html ./dist/demo/browser
+          docker cp temp:/usr/share/nginx/html ./dist
           docker rm temp
-      - name: Debug dist folder
-        run: ls -la dist
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: dist/
       - name: Create tag
         if: github.ref == 'refs/heads/main'
         run: |
