@@ -16,8 +16,8 @@ export interface Note {
 export class SupabaseService {
   private supabase: SupabaseClient;
   constructor() {
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-    const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY;
+    const supabaseUrl = process.env.VITE_SUPABASE_URL || "";
+    const supabaseKey = process.env.VITE_SUPABASE_ANON_KEY || "";
     this.supabase = createClient(
       supabaseUrl,
       supabaseKey
