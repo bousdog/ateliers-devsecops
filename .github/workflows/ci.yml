@@ -26,7 +26,7 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: adding environment variables
-      - run: |
+        run: |
           echo "export const environment = {
             production: true,
             supabaseUrl: '${{ secrets.SUPABASE_URL }}',
