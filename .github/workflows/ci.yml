@@ -51,6 +51,11 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: dist/demo/browser
+      - name: Create tag
+        if: github.ref == 'refs/heads/main'
+        run: |
+          git tag v$(date +'%Y%m%d%H%M%S')
+          git push origin --tags
   deploy:
     needs: build
     runs-on: ubuntu-latest
@@ -62,8 +67,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-      - name: Create tag
-        if: github.ref == 'refs/heads/main'
-        run: |
-          git tag v$(date +'%Y%m%d%H%M%S')
-          git push origin --tags
