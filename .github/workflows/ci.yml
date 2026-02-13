@@ -39,11 +39,11 @@ jobs:
       - name: Build Angular
         run: npm run build -- --base-href="/${{ github.event.repository.name }}/"
       - name: Debug dist folder
-        run: ls -la 
+        run: ls -la dist
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist/*
+          path: dist/${{ github.event.repository.name }}
   deploy:
     needs: build
     runs-on: ubuntu-latest
