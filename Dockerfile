@@ -1,10 +1,10 @@
 # Stage 1: Build Angular App
 FROM node:20 as build-stage
 WORKDIR /app
-COPY package.json ./
+COPY package*.json ./
 RUN npm install
 COPY . ./
-RUN npm run build
+RUN npm run build -- --configuration production
 
 # Stage 2: Serve app with Nginx
 FROM nginx:alpine
