@@ -27,14 +27,11 @@ jobs:
         run: npm install
       - name: adding environment variables
         shell: bash
-        env:
-          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
         run: |
           cat <<EOF > src/environments/environment.prod.ts
           export const environment = {
             production: true,
-            supabaseUrl: "$SUPABASE_URL",
+            supabaseUrl: "$VITE_SUPABASE_URL",
             supabaseAnonKey: "$VITE_SUPABASE_ANON_KEY"
           };
           EOF
