@@ -30,7 +30,7 @@ jobs:
           echo "export const environment = {
             production: true,
             supabaseUrl: 'https://fliesemsumcmazawoxlu.supabase.co',
-            supabaseAnonKey: 'sb_publishable_GwqFRTHiNgtCxFCeZ89ndA_LXP6WeEh'
+            supabaseAnonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZsaWVzZW1zdW1jbWF6YXdveGx1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA5NDE5MTcsImV4cCI6MjA4NjUxNzkxN30.tbRKeoSXDUBK3pdHPtZU7mcyjsvys2O9jrpDYjhAd8Q'
           };" > src/environments/environment.prod.ts
 
       # - name: Run lint
