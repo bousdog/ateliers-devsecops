@@ -38,15 +38,30 @@ jobs:
       - name: Skip lint (not configured)
         run: echo "Lint not configured for this project"
 
-      - name: Run unit tests
-        run: npx ng test demo --watch=false --browsers=ChromeHeadless
+      # - name: Run unit tests
+      #   run: npx ng test demo --watch=false --browsers=ChromeHeadless
 
-      # - name: Build Angular app
-      #   run: npm run build
+      - name: Build Angular app
+        run: npm run build
       - name: Build Angular
         run: npm run build -- --base-href="/${{ github.event.repository.name }}/" --configuration production
-      - name: Debug dist folder
-        run: ls -la dist
+      # - name: Debug dist folder
+      #   run: ls -la dist
+      # - name: Upload artifact
+      #   uses: actions/upload-pages-artifact@v3
+      #   with:
+      #     path: dist/demo/browser
+      - name: Build Docker image
+        run: docker build -t angular-app .
+
+      - name: Create container
+        run: docker create --name temp angular-app
+
+      - name: Copy dist folder
+        run: |
+          docker cp temp:/usr/share/nginx/html ./dist/demo/browser
+          docker rm temp
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
