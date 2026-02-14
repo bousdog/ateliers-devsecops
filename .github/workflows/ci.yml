@@ -19,12 +19,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # - name: Setup Node.js
-      #   uses: actions/setup-node@v3
-      #   with:
-      #     node-version: 20
-      # - name: Install dependencies
-      #   run: npm install
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - name: Install dependencies
+        run: npm install
       - name: adding environment variables
         run: |
           echo "export const environment = {
@@ -41,10 +41,10 @@ jobs:
       # - name: Run unit tests
       #   run: npx ng test demo --watch=false --browsers=ChromeHeadless
 
-      # - name: Build Angular app
-      #   run: npm run build
-      # - name: Build Angular
-      #   run: npm run build -- --base-href="/${{ github.event.repository.name }}/" --configuration production
+      - name: Build Angular app
+        run: npm run build
+      - name: Build Angular
+        run: npm run build -- --base-href="/${{ github.event.repository.name }}/" --configuration production
       # - name: Debug dist folder
       #   run: ls -la dist
       # - name: Upload artifact
