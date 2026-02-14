@@ -65,7 +65,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: browser
+          path: dist/demo/browser
       - name: Create tag
         if: github.ref == 'refs/heads/main'
         run: |
