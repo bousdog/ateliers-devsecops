@@ -62,10 +62,10 @@ jobs:
           docker cp temp:/usr/share/nginx/html ./dist
           docker rm temp
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: dist/
+      # - name: Upload artifact
+      #   uses: actions/upload-pages-artifact@v3
+      #   with:
+      #     path: dist/
       - name: Create tag
         if: github.ref == 'refs/heads/main'
         run: |
